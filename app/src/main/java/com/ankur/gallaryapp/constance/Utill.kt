@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.provider.MediaStore.Images
 import android.widget.Toast
+import com.ankur.gallaryapp.R
 import java.io.*
 
 
@@ -31,6 +32,14 @@ object Utill {
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
         val path = Images.Media.insertImage(context.contentResolver, inImage, "Title", null)
         return Uri.fromFile(File(path.toString()))
+    }
+
+    fun getOutputDirectory(context:Context): File {
+        val mediaDir = context.externalMediaDirs.firstOrNull()?.let {
+            File(it,context.resources.getString(R.string.app_name)).apply { mkdirs() }
+        }
+        return if (mediaDir != null && mediaDir.exists())
+            mediaDir else context.filesDir
     }
 
 }

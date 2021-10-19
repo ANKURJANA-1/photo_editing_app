@@ -42,7 +42,7 @@ class CameraActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         takePermission()
-        outputDirectory = getOutputDirectory()
+        outputDirectory = Utill.getOutputDirectory(this)
 
         binding.cameraCaptureButton.setOnClickListener {
             takePhoto()
@@ -115,13 +115,13 @@ class CameraActivity : AppCompatActivity() {
             })
     }
 
-    private fun getOutputDirectory(): File {
-        val mediaDir = externalMediaDirs.firstOrNull()?.let {
-            File(it, resources.getString(R.string.app_name)).apply { mkdirs() }
-        }
-        return if (mediaDir != null && mediaDir.exists())
-            mediaDir else filesDir
-    }
+//    private fun getOutputDirectory(): File {
+//        val mediaDir = externalMediaDirs.firstOrNull()?.let {
+//            File(it, resources.getString(R.string.app_name)).apply { mkdirs() }
+//        }
+//        return if (mediaDir != null && mediaDir.exists())
+//            mediaDir else filesDir
+//    }
 
 
     private fun takePermission() {
